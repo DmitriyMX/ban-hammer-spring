@@ -4,35 +4,32 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.dmitriymx.plugin.service.BannedUserService;
-
-import java.util.logging.Logger;
 
 @Component
 public class BanCommand implements CommandExecutor {
 
-	private final Logger logger;
 	private final BannedUserService service;
 
 	@Autowired
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-	public BanCommand(@Qualifier("bukkitLogger") Logger logger, BannedUserService service) {
-		this.logger = logger;
+	public BanCommand(BannedUserService service) {
 		this.service = service;
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		logger.info("Call '" + label + "' command");
-
 		if (args.length == 0) {
-			return true;
+			return false;
 		}
+		String playerName = args[0];
 
-		boolean result = service.inBanned(args[0]);
-		logger.info("Player '" + args[0] + "': " + (result ? "is banned" : "not banned"));
+		if (service.isBanned(playerName)) {
+			sender.sendMessage("Player '" + playerName + "' already banned");
+		} else {
+			service.ban(playerName);
+			sender.sendMessage("Player '" + playerName + "' now banned");
+		}
 
 		return true;
 	}

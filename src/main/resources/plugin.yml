@@ -6,7 +6,7 @@ author: @BUKKIT_PLUGIN_AUTHOR@
 commands:
   ban:
     description: Ban player
-    usage: /<command>
+    usage: /<command> PLAYER_NAME
   unban:
     description: Unban player
-    usage: /<command>
+    usage: /<command> PLAYER_NAME

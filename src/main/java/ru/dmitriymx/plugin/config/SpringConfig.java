@@ -7,14 +7,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = "ru.dmitriymx.plugin")
 @EnableJpaRepositories(basePackages = "ru.dmitriymx.plugin.repository")
+@EnableTransactionManagement
 public class SpringConfig {
 
 	@Value("${database.url}")
@@ -48,6 +52,14 @@ public class SpringConfig {
 		entityManagerFactoryBean.setJpaProperties(hibernateJpaProperties());
 
 		return entityManagerFactoryBean;
+	}
+
+	@Bean
+	public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+		jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
+
+		return jpaTransactionManager;
 	}
 
 	private Properties hibernateJpaProperties() {

@@ -19,6 +19,8 @@ public class BanHammerPlugin extends JavaPlugin {
 
 		ApplicationContext context = createSpringContext();
 
+		this.getServer().getPluginManager().registerEvents(context.getBean(PlayerListener.class), this);
+
 		this.getCommand("ban").setExecutor(context.getBean(BanCommand.class));
 		this.getCommand("unban").setExecutor(context.getBean(UnbanCommand.class));
 	}
