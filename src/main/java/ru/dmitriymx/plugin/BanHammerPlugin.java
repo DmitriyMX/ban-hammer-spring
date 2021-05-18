@@ -19,9 +19,6 @@ public class BanHammerPlugin extends JavaPlugin {
 
 		ApplicationContext context = createSpringContext();
 
-		//TODO для демонстрации
-		getLogger().info("dburl: " + context.getBean("databaseUrl", String.class));
-
 		this.getCommand("ban").setExecutor(context.getBean(BanCommand.class));
 		this.getCommand("unban").setExecutor(context.getBean(UnbanCommand.class));
 	}

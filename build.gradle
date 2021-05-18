@@ -33,6 +33,11 @@ dependencies {
     }
 
     implementation 'org.springframework:spring-context:5.2.5.RELEASE'
+
+    // compileOnly потому, что в spigot/paper уже есть драйвер для MySQL 5
+    compileOnly 'mysql:mysql-connector-java:5.1.48'
+    implementation 'org.hibernate:hibernate-core:5.4.14.Final'
+    implementation 'org.springframework.data:spring-data-jpa:2.2.6.RELEASE'
 }
 
 processResources {

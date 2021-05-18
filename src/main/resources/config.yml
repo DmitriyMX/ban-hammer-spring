@@ -1,4 +1,6 @@
 database:
-  url: some-url
-  user: some-user
-  password: some-password
+  url: jdbc:mysql://localhost:3306/ban_hammer
+  user: root
+  password: secret
+  hibernate:
+    show-sql: true
