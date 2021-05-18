@@ -31,6 +31,8 @@ dependencies {
         exclude group: 'commons-lang', module: 'commons-lang'
         exclude group: 'com.google.guava', module: 'guava'
     }
+
+    implementation 'org.springframework:spring-context:5.2.5.RELEASE'
 }
 
 processResources {

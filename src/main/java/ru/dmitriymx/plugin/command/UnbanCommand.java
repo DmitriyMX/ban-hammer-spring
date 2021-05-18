@@ -3,14 +3,20 @@ package ru.dmitriymx.plugin.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
 
+@Component
 public class UnbanCommand implements CommandExecutor {
 
 	private final Logger logger;
 
-	public UnbanCommand(Logger logger) {
+	@Autowired
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	public UnbanCommand(@Qualifier("bukkitLogger") Logger logger) {
 		this.logger = logger;
 	}
 
