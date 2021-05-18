@@ -2,3 +2,11 @@ name: @BUKKIT_PLUGIN_NAME@
 version: @BUKKIT_PLUGIN_VERSION@
 main: @BUKKIT_PLUGIN_MAINCLASS@
 author: @BUKKIT_PLUGIN_AUTHOR@
+
+commands:
+  ban:
+    description: Ban player
+    usage: /<command>
+  unban:
+    description: Unban player
+    usage: /<command>
