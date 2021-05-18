@@ -1,0 +1,48 @@
+/*
+Build:
+    gradle shadowJar
+ */
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+group 'ru.dmitriymx.plugin'
+version '1.0-SNAPSHOT'
+
+compileJava {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+    maven{ url 'https://hub.spigotmc.org/nexus/content/groups/public' }
+}
+
+dependencies {
+    compileOnly('org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT') {
+        exclude group: 'com.google.code.gson', module: 'gson'
+        exclude group: 'com.googlecode.json-simple', module: 'json-simple'
+        exclude group: 'org.yaml', module: 'snakeyaml'
+        exclude group: 'commons-lang', module: 'commons-lang'
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+}
+
+processResources {
+    filteringCharset 'UTF-8'
+    filter(ReplaceTokens, tokens: [BUKKIT_PLUGIN_NAME: project.name])
+    filter(ReplaceTokens, tokens: [BUKKIT_PLUGIN_VERSION: project.version])
+    filter(ReplaceTokens, tokens: [BUKKIT_PLUGIN_MAINCLASS: 'ru.dmitriymx.plugin.BanHammerPlugin'])
+    filter(ReplaceTokens, tokens: [BUKKIT_PLUGIN_AUTHOR: 'DmitriyMX'])
+}
+
+shadowJar {
+    archiveBaseName.set(project.name as String)
+    archiveVersion.set('')
+    archiveClassifier.set('')
+}
